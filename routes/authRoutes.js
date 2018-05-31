@@ -8,12 +8,9 @@ module.exports = app => {
     })
   );
 
-  app.get(
-    '/auth/google/calback',
-    passport.authenticate('google'),
-    (req, res) => {
-      // Successful authentication, redirect home.
-      res.redirect('/');
-    }
-  );
+  app.get('/auth/google/callback', passport.authenticate('google'));
+
+  app.get('/api/current_user', (req, res) => {
+    res.send(req.user || { hi: 'there' });
+  });
 };
